@@ -5,6 +5,9 @@
         "access_token_key": "",
         "access_token_secret": ""
     },
+    "klout": {
+        "api_key": ""
+    },
     "streaming": {
         "range": 100000
     },
