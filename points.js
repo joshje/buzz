@@ -20,9 +20,9 @@ var calculatePoints = function(){
     now = Date.now();
     _.each(config.celebs, function(celeb){
         var points = {
-            celeb: celeb,
-            twitter: calculateTwitterPoints(celebMentions[celeb]),
-            klout: klout.celebs[celeb] || 0,
+            celeb: celeb.name,
+            twitter: calculateTwitterPoints(celebMentions[celeb.twitter]),
+            klout: klout.celebs[celeb.twitter] || 0,
             random: randomPoints()
         };
         points.total = calculateTotal(points);
@@ -46,7 +46,7 @@ var randomPoints = function(){
 
 var calculateTotal = function(points){
     var total = points.twitter + points.klout + points.random;
-    total = Math.floor(Math.min(total, 1000) / 10);
+    total = Math.floor(total / 10);
     return total;
 };
 

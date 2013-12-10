@@ -11,7 +11,7 @@ var init = function(data){
 
      _.each(config.celebs, function(celeb, index){
         setTimeout(function(){
-            getKloutScore(celeb);
+            getKloutScore(celeb.twitter);
         }, index * 500);
     });
 };

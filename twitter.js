@@ -8,11 +8,15 @@ var init = function(data){
     config = data;
 
     _.each(config.celebs, function(celeb){
-        celebMentions[celeb] = [];
+        celebMentions[celeb.twitter] = [];
     });
 
+    var terms = _.map(config.celebs, function(celeb){
+        return celeb.name.replace(' ', '%20') + ',' + celeb.twitter;
+    }).join(',');
+
     new twitter(config.twitter).stream('statuses/filter', {
-        track: config.celebs.join(',')
+        track: terms
     }, function(stream) {
         stream.on('data', function(data){
             onStreamData(data);
@@ -34,11 +38,11 @@ var logTweet = function(date, celeb){
 var onStreamData = function(data){
     for (var i = config.celebs.length - 1; i >= 0; i--) {
         var celeb = config.celebs[i];
-        if (data.text.indexOf(celeb) !== -1) {
+        if (data.text.indexOf(celeb.twitter) !== -1 || data.text.indexOf(celeb.name) !== -1) {
             var date = new Date(Date.parse(data.created_at.replace(/( +)/, ' UTC$1')));
-            logTweet(date, celeb);
+            logTweet(date, celeb.twitter);
 
-            celebMentions[celeb].push(+date);
+            celebMentions[celeb.twitter].push(+date);
         }
     }
 };

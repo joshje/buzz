@@ -8,30 +8,38 @@
     "klout": {
         "api_key": ""
     },
-    "streaming": {
-        "range": 100000
-    },
     "celebs": [
-        "MrsSOsbourne",
-        "DeborahMeaden",
-        "SophieEB",
-        "simonpegg",
-        "VanessaOnAir",
-        "stephenfry",
-        "Mark_Benton",
-        "duncanbannatyne",
-        "therealgokwan",
-        "jamieoliver",
-        "RealDMitchell",
-        "2FionaFullerton",
-        "ashoztd",
-        "rickygervais",
-        "susannareid100",
-        "DerrenBrown",
-        "hairybikers",
-        "rustyrockets",
-        "jimmycarr",
-        "OfficialClancy",
-        "fearnecotton"
+        {
+            "name": "Sharon Osbourne",
+            "twitter": "MrsSOsbourne"
+        },
+        {
+            "name": "Nicole Scherzinger",
+            "twitter": "NicoleScherzy"
+        },
+        {
+            "name": "Dermot O'Leary",
+            "twitter": "radioleary"
+        },
+        {
+            "name": "Gary Barlow",
+            "twitter": "GaryBarlow"
+        },
+        {
+            "name": "Louis Walsh",
+            "twitter": "Official_Walsh"
+        },
+        {
+            "name": "Sam Bailey",
+            "twitter": "sambaileyreal"
+        },
+        {
+            "name": "Nicky McDonald",
+            "twitter": "nickymcdonald1"
+        },
+        {
+            "name": "Luke Friend",
+            "twitter": "lukefriendmusic"
+        }
     ]
 }

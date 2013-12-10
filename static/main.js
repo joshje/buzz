@@ -10,9 +10,13 @@ var chartHistory = [];
 var getBuzz = function(){
     $.ajax('/buzz')
     .done(function(data){
+        if (! data || ! data.celebs) return;
         updateHistory(data.celebs);
         if (template) $tableView.html(template.render(data));
         if (chart) addChart(data.celebs);
+        setTimeout(getBuzz, 1000);
+    })
+    .fail(function(){
         setTimeout(getBuzz, 1000);
     });
 };
@@ -26,7 +30,7 @@ var loadTemplate = function(){
 
 var updateHistory = function(data){
     var row = [new Date(Date.now())];
-    for (var i = data.length - 1; i >= 0; i--) {
+    for (var i = 0, len = data.length; i < len; i++) {
         row.push(data[i].total);
     }
     if (chartHistory.length > 7200) chartHistory.shift();
@@ -36,7 +40,7 @@ var updateHistory = function(data){
 var addChart = function(data){
     chartTable = new google.visualization.DataTable();
     chartTable.addColumn('date', 'Time');
-    for (var i = data.length - 1; i >= 0; i--) {
+    for (var i = 0, len = data.length; i < len; i++) {
         chartTable.addColumn('number', data[i].celeb);
     }
 
@@ -48,6 +52,12 @@ var addChart = function(data){
         vAxis: {
             minValue: 0,
             maxValue: 100
+        },
+        chartArea:{
+            left: 40,
+            top: 20,
+            width:"80%",
+            height:"80%"
         }
     };
     chart.draw(chartTable, options);
