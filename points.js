@@ -22,7 +22,7 @@ var calculatePoints = function(){
         var points = {
             celeb: celeb,
             twitter: calculateTwitterPoints(celebMentions[celeb]),
-            klout: klout.celebs[celeb],
+            klout: klout.celebs[celeb] || 0,
             random: randomPoints()
         };
         points.total = calculateTotal(points);
