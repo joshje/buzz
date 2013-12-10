@@ -15,4 +15,17 @@ thead td {
 th, td {
     border: 1px solid #DDD;
     padding: 0.5em;
+    position: relative;
+}
+.total-text {
+    display: block;
+    position: relative;
+}
+.points {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #a3c9ff;
 }

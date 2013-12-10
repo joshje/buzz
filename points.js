@@ -4,6 +4,7 @@ var klout = require('./klout');
 
 var config;
 var celebPoints;
+var now;
 
 var init = function(data){
     config = data;
@@ -16,19 +17,37 @@ var init = function(data){
 var calculatePoints = function(){
     celebPoints = [];
     var celebMentions = twitter.celebMentions;
-    var range = Date.now() - config.streaming.range;
+    now = Date.now();
     _.each(config.celebs, function(celeb){
-        var item = {
+        var points = {
             celeb: celeb,
-            twitter: 0,
-            klout: klout.celebs[celeb]
+            twitter: calculateTwitterPoints(celebMentions[celeb]),
+            klout: klout.celebs[celeb],
+            random: randomPoints()
         };
-        var mentions = celebMentions[celeb];
-        _.each(mentions, function(mention){
-            if (mention > range) ++item.twitter;
-        });
-        celebPoints.push(item);
+        points.total = calculateTotal(points);
+
+        celebPoints.push(points);
     });
+};
+
+var calculateTwitterPoints = function(mentions){
+    var points = 0;
+    _.each(mentions, function(mention){
+        var age = now - mention;
+        if (age < 100000) points += Math.floor(100 - age / 1000);
+    });
+    return points;
+};
+
+var randomPoints = function(){
+    return Math.floor(Math.random() * 101);
+};
+
+var calculateTotal = function(points){
+    var total = points.twitter + points.klout + points.random;
+    total = Math.floor(Math.min(total, 1000) / 10);
+    return total;
 };
 
 var getCelebPoints = function(){

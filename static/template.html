@@ -1,13 +1,24 @@
 <table>
     <thead>
         <tr>
-            <th width="300">Celeb</th><td width="100">Twitter</td><td width="100">Klout</td>
+            <th width="300">Celeb</th>
+            <td width="100">Twitter</td>
+            <td width="100">Klout</td>
+            <td width="100">Random</td>
+            <td width="100">Total</td>
         </tr>
     </thead>
     <tbody>
     {{#celebs}}
         <tr>
-            <th>{{celeb}}</th><td>{{twitter}}</td><td>{{klout}}</td>
+            <th>{{celeb}}</th>
+            <td>{{twitter}}</td>
+            <td>{{klout}}</td>
+            <td>{{random}}</td>
+            <td>
+                <span class="points" style="width: {{total}}%"></span>
+                <span class="total-text">{{total}}</span>
+            </td>
         </tr>
     {{/celebs}}
     </tbody>
