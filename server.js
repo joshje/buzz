@@ -12,7 +12,7 @@ app.get('/buzz', function(req, res){
 
 app.get('/*', express.static(__dirname + '/static/'));
 
-app.listen(1234);
-console.log('Listening on port 1234');
+app.listen(config.port);
+console.log('Listening on port ' + config.port);
 
 points.init(config);
