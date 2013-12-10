@@ -38,7 +38,7 @@ var logTweet = function(date, celeb){
 var onStreamData = function(data){
     for (var i = config.celebs.length - 1; i >= 0; i--) {
         var celeb = config.celebs[i];
-        if (data.text.indexOf(celeb.twitter) !== -1 || data.text.indexOf(celeb.name) !== -1) {
+        if (data && data.text && data.text.indexOf(celeb.twitter) !== -1 || data.text.indexOf(celeb.name) !== -1) {
             var date = new Date(Date.parse(data.created_at.replace(/( +)/, ' UTC$1')));
             logTweet(date, celeb.twitter);
 

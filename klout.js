@@ -18,9 +18,9 @@ var init = function(data){
 
 var getKloutScore = function(celeb){
     klout.getKloutIdentity(celeb, function(error, data) {
-        if (! data.id) return;
+        if (! data || ! data.id) return;
         klout.getUserScore(data.id, function(error, data) {
-            if (! data.score) return;
+            if (! data || ! data.score) return;
 
             celebs[celeb] = Math.round(data.score);
         });
