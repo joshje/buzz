@@ -28,8 +28,19 @@ var loadTemplate = function(){
     });
 };
 
+var timeFormatNow = function(){
+    var now = new Date(Date.now());
+    var hours = now.getHours();
+    if (hours < 10) hours = '0'+hours;
+    var minutes = now.getMinutes();
+    if (minutes < 10) minutes = '0'+minutes;
+    var seconds = now.getSeconds();
+    if (seconds < 10) seconds = '0'+seconds;
+    return hours + ':' + minutes + ':' + seconds;
+};
+
 var updateHistory = function(data){
-    var row = [new Date(Date.now())];
+    var row = [timeFormatNow()];
     for (var i = 0, len = data.length; i < len; i++) {
         row.push(data[i].total);
     }
@@ -39,7 +50,9 @@ var updateHistory = function(data){
 
 var addChart = function(data){
     chartTable = new google.visualization.DataTable();
-    chartTable.addColumn('date', 'Time');
+
+    chartTable.addColumn('string', 'Time');
+
     for (var i = 0, len = data.length; i < len; i++) {
         chartTable.addColumn('number', data[i].celeb);
     }
@@ -50,11 +63,16 @@ var addChart = function(data){
         width: Math.min($(window).width(), 1200),
         height: 500,
         vAxis: {
+            title: 'Buzz',
             minValue: 0,
             maxValue: 100
         },
+        hAxis: {
+            title: 'Time',
+            slantedText: true
+        },
         chartArea:{
-            left: 40,
+            left: 50,
             top: 20,
             width:"80%",
             height:"80%"
