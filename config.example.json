@@ -1,4 +1,5 @@
 {
+    "port": 1234,
     "twitter": {
         "consumer_key": "",
         "consumer_secret": "",
