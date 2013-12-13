@@ -15,20 +15,22 @@ var init = function(data){
 };
 
 var calculatePoints = function(){
-    celebPoints = [];
     var celebMentions = twitter.celebMentions;
     now = Date.now();
-    _.each(config.celebs, function(celeb){
+    celebPoints = _.map(config.celebs, function(celeb, i){
+        var lastTotal = celebPoints && celebPoints[i] && celebPoints[i].total;
         var points = {
             celeb: celeb.name,
             twitter: calculateTwitterPoints(celebMentions[celeb.twitter]),
             klout: klout.celebs[celeb.twitter] || 0,
-            random: randomPoints()
+            random: randomPoints(),
+            lastTotal: lastTotal
         };
         points.total = calculateTotal(points);
 
-        celebPoints.push(points);
+        return points;
     });
+    normaliseTotals();
 };
 
 var calculateTwitterPoints = function(mentions){
@@ -52,6 +54,23 @@ var calculateTotal = function(points){
 
 var getCelebPoints = function(){
     return celebPoints;
+};
+
+var normaliseTotals = function(){
+    var normTotal = config.normalise.total;
+    var variance = config.normalise.variance;
+
+    var max = _.max(celebPoints, 'total').total;
+    _.each(celebPoints, function(celeb){
+        var total;
+        var normal = celeb.total / max;
+        total = Math.pow(normal, variance) * normTotal;
+        if (celeb.lastTotal) {
+            total = (total + celeb.lastTotal * 2) / 3;
+            delete celeb.lastTotal;
+        }
+        celeb.total = Math.floor(total);
+    });
 };
 
 module.exports = {

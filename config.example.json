@@ -9,6 +9,10 @@
     "klout": {
         "api_key": ""
     },
+    "normalise": {
+        "total": 100,
+        "variance": 2
+    },
     "celebs": [
         {
             "name": "Sharon Osbourne",
