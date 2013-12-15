@@ -44,7 +44,7 @@ var updateHistory = function(data){
     for (var i = 0, len = data.length; i < len; i++) {
         row.push(data[i].total);
     }
-    if (chartHistory.length > 7200) chartHistory.shift();
+    if (chartHistory.length > 600) chartHistory.shift();
     chartHistory.push(row);
 };
 
