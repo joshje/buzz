@@ -4,6 +4,7 @@ var klout = require('./klout');
 
 var config;
 var celebPoints;
+var maxPoints = 0;
 var now;
 
 var init = function(data){
@@ -60,10 +61,15 @@ var normaliseTotals = function(){
     var normTotal = config.normalise.total;
     var variance = config.normalise.variance;
 
-    var max = _.max(celebPoints, 'total').total;
+    var newMax = _.max(celebPoints, 'total').total;
+    if (newMax > maxPoints) {
+        maxPoints = newMax;
+    } else {
+        maxPoints = (maxPoints + newMax) / 2;
+    }
     _.each(celebPoints, function(celeb){
         var total;
-        var normal = celeb.total / max;
+        var normal = celeb.total / maxPoints;
         total = Math.pow(normal, variance) * normTotal;
         if (celeb.lastTotal) {
             total = (total + celeb.lastTotal * 2) / 3;
