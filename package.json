@@ -6,7 +6,7 @@
   "main": "server.js",
   "author": "josh@zeebox.com",
   "dependencies": {
-    "express": "4.0.0",
+    "express": "3.12.1",
     "yamljs": "0.2.8",
     "twitter": "~0.2.5",
     "lodash": "~2.4.1",
