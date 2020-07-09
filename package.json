@@ -9,7 +9,7 @@
     "express": "4.0.0",
     "yamljs": "0.2.8",
     "twitter": "~0.2.5",
-    "lodash": "~2.4.1",
+    "lodash": "~4.17.16",
     "node_klout": "~0.2.3"
   }
 }
